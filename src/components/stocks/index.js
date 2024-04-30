@@ -40,7 +40,7 @@ const StockManagement = () => {
         page: page + 1, // Adjust if your API uses 1-based indexing for pages
         limit: rowsPerPage,
       });
-      setData(response.data); // Assuming the API returns an array of data
+      setData(response); // Assuming the API returns an array of data
     } catch (error) {
       console.error("Error fetching data:", error);
     }
