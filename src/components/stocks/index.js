@@ -228,7 +228,7 @@ const StockManagement = () => {
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]} // Customize as needed
         component="div"
-        count={data.length}
+        count={data?.length || 0}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
