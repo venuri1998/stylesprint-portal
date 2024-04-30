@@ -19,7 +19,7 @@ import {
   Select,
   MenuItem
 } from "@mui/material";
-import { addStock } from "../../services/stockService";
+import { addStock, getStocks } from "../../services/stockService";
 
 const StockManagement = () => {
   const [data, setData] = useState([]);
@@ -36,10 +36,11 @@ const StockManagement = () => {
   // table related
   const fetchData = async () => {
     try {
-      const response = await addStock({
+      const response = await getStocks({
         page: page + 1, // Adjust if your API uses 1-based indexing for pages
         rowsPerPage: rowsPerPage,
       });
+      console.log(response, 'response in get')
       setData(response.data); // Assuming the API returns an array of data
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -65,7 +66,7 @@ const StockManagement = () => {
     setOpenNew(false);
   };
 
-  const addStock = async (data) => {
+  const addItems = async (data) => {
     try {
       const response = await addStock(data);
       console.log(response, 'this is the response getting ')
@@ -97,7 +98,7 @@ const StockManagement = () => {
             const formData = new FormData(event.currentTarget);
             const formJson = Object.fromEntries(formData.entries());
             console.log(formJson);
-            addStock(formJson)
+            addItems(formJson)
             handleCloseNew();
           },
         }}

@@ -3,26 +3,35 @@ import axios from 'axios';
 const STOCK_SERVICE_URL = window?.configs?.apiUrl;
 
 export const addStock = async (stockDetails) => {
-  console.log(stockDetails, 'stock details', STOCK_SERVICE_URL)
+  console.log(stockDetails, 'stock details', STOCK_SERVICE_URL);
+
   try {
-    const response = await fetch(`${STOCK_SERVICE_URL}/stocks`, {
-      method: 'POST',
+    const response = await axios.post(`${STOCK_SERVICE_URL}/stocks`, stockDetails, {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(stockDetails),
     });
 
-    console.log(response, 'tis is the repsonse--')
+    console.log(response, 'this is the response--');
 
-    if (!response.ok) {
-      const message = `An error has occurred: ${response.status}`;
-      throw new Error(message);
-    }
+    // if (!response.status === 200) {
+    //   const message = `An error has occurred: ${response.status}`;
+    //   throw new Error(message);
+    // }
 
-    const result = await response.json();
-    return result;
+    return response?.data;
   } catch (error) {
     throw error;
+  }
+};
+
+export const getStocks = async (data) => {
+  try {
+    const response = await axios.get(`${STOCK_SERVICE_URL}/stocks`);
+    console.log(response, 'this is the response--')
+    return response?.data;
+  } catch (error) {
+    console.error('Error fetching stock data', error);
+    throw error; // Rethrowing the error so it can be caught and handled in the component
   }
 };
