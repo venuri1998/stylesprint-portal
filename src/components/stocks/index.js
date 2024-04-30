@@ -68,6 +68,7 @@ const StockManagement = () => {
   const addItems = async (data) => {
     try {
       const response = await addStock(data);
+      setPage(0);
       console.log(response, 'this is the response getting ')
     } catch (error) {
       console.error("Error fetching data:", error);
