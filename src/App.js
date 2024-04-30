@@ -89,7 +89,7 @@ function App() {
             </Toolbar>
           </AppBar>
           <Routes>
-            <Route path="/login" element={<StockManagement />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route element={<ProtectedRoute isLoggedIn={loggedIn} />}>
               <Route path="/" element={
                 <Container maxWidth="sm">
