@@ -68,6 +68,7 @@ const StockManagement = () => {
   const addItems = async (data) => {
     try {
       const response = await addStock(data);
+      setPage(0);
       console.log(response, 'this is the response getting ')
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -228,7 +229,7 @@ const StockManagement = () => {
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]} // Customize as needed
         component="div"
-        count={data.length}
+        count={data?.length || 0}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
