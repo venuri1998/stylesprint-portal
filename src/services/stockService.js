@@ -4,7 +4,7 @@ const STOCK_SERVICE_URL = window?.configs?.apiUrl;
 
 export const addStock = async (stockDetails) => {
   try {
-    const response = await axios.post(`${STOCK_SERVICE_URL}/stocks`, stockDetails, {
+    const response = await axios.post(`${STOCK_SERVICE_URL}/stocks`, {...stockDetails}, {
       headers: {
         'Content-Type': 'application/json',
       },

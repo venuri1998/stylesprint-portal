@@ -40,7 +40,7 @@ const StockManagement = () => {
         page: page + 1, // Adjust if your API uses 1-based indexing for pages
         limit: rowsPerPage,
       });
-      setData(response.data); // Assuming the API returns an array of data
+      setData(response); // Assuming the API returns an array of data
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -67,7 +67,13 @@ const StockManagement = () => {
 
   const addItems = async (data) => {
     try {
-      const response = await addStock(data);
+      const updatedData = {
+        ...data,
+        cost_price: parseFloat(+data.cost_price).toFixed(2),
+        sale_price: parseFloat(+data.sale_price).toFixed(2),
+        quantity: parseFloat(+data.quantity).toFixed(2)
+      }
+      const response = await addStock(updatedData);
       setPage(0);
       console.log(response, 'this is the response getting ')
     } catch (error) {
@@ -97,9 +103,6 @@ const StockManagement = () => {
             event.preventDefault();
             const formData = new FormData(event.currentTarget);
             let formJson = Object.fromEntries(formData.entries());
-            formJson.cost_price = parseFloat(formJson.cost_price).toFixed(2)
-            formJson.sale_price = parseFloat(formJson.sale_price).toFixed(2)
-            formJson.quantity = parseFloat(formJson.quantity).toFixed(2)
             addItems(formJson)
             handleCloseNew();
           },
