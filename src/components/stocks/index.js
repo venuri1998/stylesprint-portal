@@ -69,9 +69,9 @@ const StockManagement = () => {
     try {
       const updatedData = {
         ...data,
-        cost_price: parseFloat(+data.cost_price).toFixed(2),
-        sale_price: parseFloat(+data.sale_price).toFixed(2),
-        quantity: parseFloat(+data.quantity).toFixed(2)
+        cost_price: +parseFloat(data.cost_price).toFixed(2),
+        sale_price: +parseFloat(data.sale_price).toFixed(2),
+        quantity: +parseFloat(data.quantity).toFixed(2)
       }
       const response = await addStock(updatedData);
       setPage(0);
