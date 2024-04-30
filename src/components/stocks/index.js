@@ -38,9 +38,8 @@ const StockManagement = () => {
     try {
       const response = await getStocks({
         page: page + 1, // Adjust if your API uses 1-based indexing for pages
-        rowsPerPage: rowsPerPage,
+        limit: rowsPerPage,
       });
-      console.log(response, 'response in get')
       setData(response.data); // Assuming the API returns an array of data
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -96,8 +95,10 @@ const StockManagement = () => {
           onSubmit: (event) => {
             event.preventDefault();
             const formData = new FormData(event.currentTarget);
-            const formJson = Object.fromEntries(formData.entries());
-            console.log(formJson);
+            let formJson = Object.fromEntries(formData.entries());
+            formJson.cost_price = parseFloat(formJson.cost_price).toFixed(2)
+            formJson.sale_price = parseFloat(formJson.sale_price).toFixed(2)
+            formJson.quantity = parseFloat(formJson.quantity).toFixed(2)
             addItems(formJson)
             handleCloseNew();
           },
@@ -202,8 +203,8 @@ const StockManagement = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.length ? (
-              data.map((row, index) => (
+            {data?.length ? (
+              data?.map((row, index) => (
                 <TableRow key={index}>
                   <TableCell>{row.id}</TableCell>{" "}
                   {/* Adjust property names based on your data */}
